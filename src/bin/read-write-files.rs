@@ -8,6 +8,7 @@ fn main() {
 	let mut file_b = BufWriter::new(
 		fs::OpenOptions::new()
 			.create(true)
+			.truncate(true)
 			.write(true)
 			.open("test_output.txt")
 			.expect("Unable to open file"),
@@ -17,6 +18,6 @@ fn main() {
 		let mut line = line.unwrap();
 		println!("Read Line: '{}'", line);
 		line += "\n"; // Needed as .lines() gives string with newlines removed
-		file_b.write(line.as_bytes()).unwrap();
+		file_b.write_all(line.as_bytes()).unwrap();
 	}
 }
